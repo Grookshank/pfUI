@@ -83,7 +83,7 @@ pfUI:RegisterModule("thirdparty", function ()
           KLHTM_Frame:SetWidth(pfUI.chat.right:GetWidth() / 2)
           KLHTM_Frame:ClearAllPoints()
           KLHTM_Frame:SetPoint("TOPLEFT", pfUI.chat.right, "TOPLEFT", 0, 0)
-          KLHTM_Frame:SetPoint("BOTTOMRIGHT", pfUI.chat.right, "BOTTOM", -C.appearance.border.default, 0)
+          KLHTM_Frame:SetPoint("BOTTOMRIGHT", pfUI.chat.right, "BOTTOM", -5, 0)
         end
       end
     end
@@ -248,9 +248,9 @@ pfUI:RegisterModule("thirdparty", function ()
       if DPSMateSettings then
         -- set DPSMate appearance to match pfUI
         for w in pairs(DPSMateSettings["windows"]) do
-          DPSMateSettings["windows"][w]["titlebarheight"] = 20
-          DPSMateSettings["windows"][w]["titlebarfontsize"] = 12
-          DPSMateSettings["windows"][w]["titlebarfont"] = "Accidental Presidency"
+          DPSMateSettings["windows"][w]["titlebarheight"] = 25
+          DPSMateSettings["windows"][w]["titlebarfontsize"] = 13
+          DPSMateSettings["windows"][w]["titlebarfont"] = "Myriad-Pro"
           DPSMateSettings["windows"][w]["titlebaropacity"] = 0
 
           DPSMateSettings["windows"][w]["titlebarfontcolor"][1] = 1
@@ -260,7 +260,7 @@ pfUI:RegisterModule("thirdparty", function ()
           DPSMateSettings["windows"][w]["barheight"] = 11
           DPSMateSettings["windows"][w]["barfontsize"] = 13
           DPSMateSettings["windows"][w]["bartexture"] = "normTex"
-          DPSMateSettings["windows"][w]["barfont"] = "Accidental Presidency"
+          DPSMateSettings["windows"][w]["barfont"] = "Myriad-Pro"
 
           DPSMateSettings["windows"][w]["opacity"] = 1
           DPSMateSettings["windows"][w]["contentbgtexture"] = "Solid Background"
