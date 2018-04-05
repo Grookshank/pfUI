@@ -44,7 +44,7 @@ pfUI:RegisterModule("loot", function ()
         names = (k==1) and (i..":"..pfUI.loot.index_to_name[candidates[i]]) or (names..", "..i..":"..pfUI.loot.index_to_name[candidates[i]])
         -- fit the maximum names in a single 255 char message (15)
         if i == to or k == 15 then
-          QueueFunction(SendChatMessageWide,names)
+          -- QueueFunction(SendChatMessageWide,names)
           names = ""
         end
         k = k<15 and k+1 or 1
