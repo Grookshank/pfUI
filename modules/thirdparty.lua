@@ -149,7 +149,7 @@ pfUI:RegisterModule("thirdparty", function ()
     if C.thirdparty.ktm.skin == "1" then
       -- remove titlebar
       KLHTM_Gui.title.back:Hide()
-      KLHTM_SetGuiScale(.9)
+      KLHTM_SetGuiScale(1)
 
       CreateBackdrop(KLHTM_Frame, nil, nil, (C.thirdparty.chatbg == "1" and .8))
 
