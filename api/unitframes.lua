@@ -402,20 +402,20 @@ function pfUI.uf:UpdateConfig()
             for i=1,40 do
               local unitstr = "raid" .. i
               if not UnitHasBuff(unitstr, texture) and UnitName(unitstr) then
-                playerlist = playerlist .. ( not first and ", " or "") .. UnitName(unitstr)
+                playerlist = playerlist .. ( not first and ", " or "") .. GetUnitColor(unitstr) .. UnitName(unitstr) .. "|r"
                 first = nil
               end
             end
           else
             if not UnitHasBuff("player", texture) then
-              playerlist = playerlist .. ( not first and ", " or "") .. UnitName("player")
+              playerlist = playerlist .. ( not first and ", " or "") .. GetUnitColor("player") .. UnitName("player") .. "|r"
               first = nil
             end
 
             for i=1,4 do
               local unitstr = "party" .. i
               if not UnitHasBuff(unitstr, texture) and UnitName(unitstr) then
-                playerlist = playerlist .. ( not first and ", " or "") .. UnitName(unitstr)
+                playerlist = playerlist .. ( not first and ", " or "") .. GetUnitColor(unitstr) .. UnitName(unitstr) .. "|r"
                 first = nil
               end
             end
@@ -948,12 +948,11 @@ function pfUI.uf:RefreshUnit(unit, component)
 
   -- Loot Icon
   if unit.lootIcon and ( component == "all" or component == "lootIcon" ) then
-    local _, lootmaster = GetLootMethod()
-    if GetNumPartyMembers() == 0 and GetNumRaidMembers() == 0 then
-      unit.lootIcon:Hide()
-    elseif lootmaster and (
-        ( unit.label == "party" and tonumber(unit.id) == lootmaster ) or
-        ( unit.label == "player" and lootmaster == 0 ) )then
+    -- no third return value here.. but leaving this as a hint
+    local method, group, raid = GetLootMethod()
+    local name = group and UnitName(group == 0 and "player" or "party"..group) or raid and UnitName("raid"..raid) or nil
+
+    if name and name == UnitName(unit.label .. unit.id) then
       unit.lootIcon:Show()
     else
       unit.lootIcon:Hide()
@@ -1331,12 +1330,12 @@ function pfUI.uf:ClickAction(button)
     elseif label == "party" then
       ToggleDropDownMenu(1, nil, getglobal("PartyMemberFrame" .. this.id .. "DropDown"), "cursor")
     elseif label == "raid" then
-      -- RaidFrameDropDown_Initialize expects .name and .unit attributes on raid unit buttons
-      if not (this.name) then this.name = this.lastUnit end
-      if not (this.unit) then this.unit = unitstr end
-      ToggleDropDownMenu(1, nil, getglobal("RaidMemberFrame" .. this.id .. "DropDown"), "cursor")
-      FriendsDropDown.initialize = RaidFrameDropDown_Initialize
+      local name = this.lastname
+      local id = this.id
+      local unit = this.label .. this.id
+
       FriendsDropDown.displayMode = "MENU"
+      FriendsDropDown.initialize = function() UnitPopup_ShowMenu(getglobal(UIDROPDOWNMENU_OPEN_MENU), "PARTY", unit, name, id) end
       ToggleDropDownMenu(1, nil, FriendsDropDown, "cursor")
     end
   else

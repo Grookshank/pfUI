@@ -620,7 +620,7 @@ pfUI:RegisterModule("gui", function ()
           function()
             _G["pfUI_init"] = {}
             this:GetParent():Hide()
-            pfUI.gui:Reload()
+            pfUI.firstrun:NextStep()
           end)
       end, true)
 
@@ -628,6 +628,7 @@ pfUI:RegisterModule("gui", function ()
         CreateQuestionDialog(T["Do you really want to reset your configuration?\nThis also includes frame positions"],
           function()
             _G["pfUI_config"] = {}
+            _G["pfUI_init"] = {}
             pfUI:LoadConfig()
             this:GetParent():Hide()
             pfUI.gui:Reload()
@@ -740,6 +741,7 @@ pfUI:RegisterModule("gui", function ()
       CreateConfig(nil, this, T["Cooldown Text Font Size"], C.appearance.cd, "font_size")
       CreateConfig(nil, this, T["Display Debuff Durations"], C.appearance.cd, "debuffs", "checkbox")
       CreateConfig(nil, this, T["Enable Durations On Blizzard Frames"], C.appearance.cd, "blizzard", "checkbox")
+      CreateConfig(nil, this, T["Enable Durations On Foreign Frames"], C.appearance.cd, "foreign", "checkbox")
       this.setup = true
     end
   end)
